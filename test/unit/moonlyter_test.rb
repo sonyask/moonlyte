@@ -5,3 +5,18 @@ class MoonlyterTest < ActiveSupport::TestCase
   #   assert true
   # end
 end
+
+# == Schema Information
+#
+# Table name: moonlyters
+#
+#  id          :integer         not null, primary key
+#  description :text
+#  rating      :float
+#  education   :text
+#  experience  :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#  user_id     :integer
+#
+

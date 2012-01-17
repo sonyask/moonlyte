@@ -11,13 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120116222005) do
+ActiveRecord::Schema.define(:version => 20120116233232) do
 
-  create_table "comments", :force => true do |t|
-    t.integer  "specialty_id"
+  create_table "feedbacks", :force => true do |t|
     t.text     "comment"
+    t.integer  "rating"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "specialty_id"
+    t.string   "username"
   end
 
   create_table "moonlyters", :force => true do |t|
@@ -30,19 +32,15 @@ ActiveRecord::Schema.define(:version => 20120116222005) do
     t.integer  "user_id"
   end
 
-  create_table "ratings", :force => true do |t|
-    t.integer  "specialty_id"
-    t.float    "rating"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "specialties", :force => true do |t|
     t.text     "description"
     t.float    "rate"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "moonlyter_id"
+    t.integer  "total_rating"
+    t.float    "average_rating"
+    t.integer  "num_ratings"
   end
 
   create_table "tags", :force => true do |t|

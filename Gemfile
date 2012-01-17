@@ -29,10 +29,14 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-group :development do
-  gem 'rspec-rails', '2.6.1'
-  gem 'annotate', '2.4.0'
-end
+# group :development do
+#   gem 'rspec-rails', '2.6.1'
+#   gem 'annotate', '2.4.0'
+# end
+
+gem 'annotate', 
+    :git => 'git://github.com/jeremyolliver/annotate_models.git', 
+    :branch => 'rake_compatibility'
 
 group :test do
   # Pretty printed test output

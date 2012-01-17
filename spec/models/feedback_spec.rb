@@ -1,17 +1,19 @@
 require 'spec_helper'
 
-describe Tag do
+describe Feedback do
   pending "add some examples to (or delete) #{__FILE__}"
 end
 
 # == Schema Information
 #
-# Table name: tags
+# Table name: feedbacks
 #
 #  id           :integer         not null, primary key
-#  specialty_id :integer
-#  name         :string(255)
+#  comment      :text
+#  rating       :integer
 #  created_at   :datetime
 #  updated_at   :datetime
+#  specialty_id :integer
+#  username     :string(255)
 #
 
