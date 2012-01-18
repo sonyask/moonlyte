@@ -10,7 +10,8 @@
 #
 
 class Tag < ActiveRecord::Base
-  belongs_to :specialty
+
+  belongs_to :tagable, :polymorphic => true
   
   validates :name, :presence => true
 end

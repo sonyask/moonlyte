@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
   has_secure_password
   
   has_one :moonlyter, :dependent => :destroy
+  has_many :requests, :dependent => :destroy
 
   attr_accessible :firstName, :lastName, :email, :username, :avatar, :password, :password_confirmation
   
@@ -27,4 +28,5 @@ class User < ActiveRecord::Base
   validates :username, :email, :uniqueness => true
   validates :firstName, :lastName, :length => { :maximum => 20 }
   
+
 end
