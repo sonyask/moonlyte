@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Moonlyter:</b>
+  <%= @moonlyter.user.username %>
+</p>
+
+<p>
+  <b>Firstname:</b>
+  <%= @moonlyter.user.firstName %>
+</p>
+
+<p>
+  <b>Lastname:</b>
+  <%= @moonlyter.user.lastName %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%= @moonlyter.user.email %>
+</p>
+
+<p>
+  <b>Password:</b>
+  <%= @moonlyter.user.password %>
+</p>
+
+<p>
+  <b>Avatar:</b>
+  <%= image_tag @moonlyter.user.avatar %>
+</p>
+
+<p>
+  <b>General Description:</b>
+  <%= @moonlyter.description %>
+</p>
+
+<p>
+  <b>Rating:</b>
+  <%= display @moonlyter.rating %>
+</p>
+
+<p>
+  <b>Education:</b>
+  <%= display @moonlyter.education %>
+</p>
+
+<p>
+  <b>Experience:</b>
+  <%= display @moonlyter.experience %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_path(@moonlyter.user) %> |
+<%= link_to 'Back', moonlyters_path %>

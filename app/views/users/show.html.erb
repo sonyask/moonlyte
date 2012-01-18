@@ -22,14 +22,20 @@
 
 <p>
   <b>Password:</b>
-  <%= @user.password %>
+  <%= @user.password_digest %>
 </p>
 
 <p>
   <b>Avatar:</b>
-  <%= @user.avatar %>
+  <%= image_tag @user.avatar %>
 </p>
 
+<% unless @user.moonlyter == nil %>
+<p>
+  <b>Moonlyter:</b>
+  <%= @user.moonlyter.description %>
+</p>
+<% end %>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

@@ -14,11 +14,12 @@
 #
 
 class User < ActiveRecord::Base
-  has_one :moonlyter
+  has_secure_password
   
-  attr_accessible :firstName, :lastName, :email, :username, :avatar
+  has_one :moonlyter, :dependent => :destroy
+  
+  attr_accessible :firstName, :lastName, :email, :username, :avatar, :password, :password_confirmation
   
   validates :username, :email, :password, :presence => true
-  
-  
+  validates :username, :email, :uniqueness => true
 end

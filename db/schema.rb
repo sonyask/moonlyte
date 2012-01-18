@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120116233232) do
+ActiveRecord::Schema.define(:version => 20120118010803) do
 
   create_table "feedbacks", :force => true do |t|
     t.text     "comment"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(:version => 20120116233232) do
     t.string   "firstName"
     t.string   "lastName"
     t.string   "email"
-    t.string   "password"
+    t.string   "password_digest"
     t.string   "avatar"
     t.datetime "created_at"
     t.datetime "updated_at"
