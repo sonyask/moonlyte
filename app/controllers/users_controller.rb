@@ -80,4 +80,12 @@ class UsersController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def self.authenticate (user_id)
+    user = find_by_id(user_id)
+    return nil if user.nil?
+    return user
+  end
+    
+  
 end
