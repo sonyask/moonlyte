@@ -5,6 +5,11 @@ module SessionsHelper
     self.current_user = user
   end
   
+  def sign_out
+    session[:remember_token] = nil
+    self.current_user = nil
+  end
+  
   def signed_in?
     !current_user.nil?
   end
@@ -19,7 +24,8 @@ module SessionsHelper
   
   private
     def user_from_remember_token
-      User.authenticate(remember_token)
+      User.find_by_id(remember_token)
+      #User.authenticate(remember_token)
     end
     def remember_token
       session[:remember_token]

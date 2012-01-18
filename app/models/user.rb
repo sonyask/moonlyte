@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :requests, :dependent => :destroy
 
   attr_accessible :firstName, :lastName, :email, :username, :avatar, :password, :password_confirmation
+  attr_reader :firstName
   
   validates :username, :email, :presence => true
   validates :password, :presence => true,

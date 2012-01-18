@@ -3,7 +3,8 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
-
+    @current_user = current_user
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @users }
@@ -44,6 +45,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        sign_in @user
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
       else
@@ -81,7 +83,7 @@ class UsersController < ApplicationController
     end
   end
   
-  def self.authenticate (user_id)
+  def self.authenticate(user_id)
     user = find_by_id(user_id)
     return nil if user.nil?
     return user

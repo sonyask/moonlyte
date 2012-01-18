@@ -15,3 +15,6 @@
 <% end %>
 
 <%= link_to 'New User!', new_user_path %>
+<% if signed_in? %>
+  <%= link_to 'Destroy', signout_path %>
+<% end %>
