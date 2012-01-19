@@ -4,7 +4,7 @@ Moonlyte::Application.routes.draw do
   resources :moonlyters
   resources :sessions, :only => [:new, :create, :destroy]
   
-  match '/signup', :to => 'sessions#new' 
+  match '/signin', :to => 'sessions#new' 
   match '/signout', :to => 'sessions#destroy'
   
   # The priority is based upon order of creation:

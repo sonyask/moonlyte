@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(:version => 20120118185738) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
+    t.string   "title"
+    t.integer  "user_id"
   end
 
   create_table "specialties", :force => true do |t|
