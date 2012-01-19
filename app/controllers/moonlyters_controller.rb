@@ -24,11 +24,46 @@ class MoonlytersController < ApplicationController
   # GET /moonlyters/new
   # GET /moonlyters/new.json
   def new
-    @moonlyter = Moonlyter.new
+    # make a new moonlighter if the user is signed in
+    if signed_in? 
+      if current_user.moonlyter.nil?
+        @moonlyter = current_user.build_moonlyter
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @moonlyter }
+        respond_to do |format|
+          format.html # new.html.erb
+          format.json { render json: @moonlyter }
+        end
+      else
+        flash[:error] = "Moonlyter account already exists"
+        redirect_to moonlyters_path
+      end
+    else
+      flash[:error] = "Must be signed up first"
+      redirect_to signin_path
     end
+  end
+  
+  def create
+    if signed_in?
+      if current_user.moonlyter.nil?
+        @moonlyter = current_user.build_moonlyter(params[:moonlyter])
+        respond_to do |format|
+          if @moonlyter.save
+            format.html { redirect_to @moonlyter, notice: 'Moonlyter was successfully created.' }
+            format.json { render json: @moonlyter, status: :created, location: @moonlyter }
+          else
+            format.html { render action: "new" }
+            format.json { render json: @moonlyter.errors, status: :unprocessable_entity }
+          end
+        end
+      else
+        flash[:notice] = "Moonlyter account already exists"
+        redirect_to moonlyters_path
+      end
+    else
+      flash[:error] = "Must be signed up first"
+      redirect_to signin_path
+    end
+      
   end
 end
