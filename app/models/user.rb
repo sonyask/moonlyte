@@ -28,6 +28,6 @@ class User < ActiveRecord::Base
                        :length => { :within => 7..40 }
   validates :username, :email, :uniqueness => true
   validates :firstName, :lastName, :length => { :maximum => 20 }
-  
+  validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/, :on => :create } 
 
 end
