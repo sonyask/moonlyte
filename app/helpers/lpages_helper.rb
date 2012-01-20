@@ -1,0 +1,2 @@
+module LpagesHelper
+end

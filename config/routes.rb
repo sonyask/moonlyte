@@ -1,5 +1,15 @@
 Moonlyte::Application.routes.draw do
 
+  get "lpages/development"
+
+  match '/pages', :to => 'view#standard'
+
+  get "pages/about"
+
+  get "pages/index"
+
+  get "pages/contact"
+
   resources :users
   resources :moonlyters
   resources :sessions, :only => [:new, :create, :destroy]

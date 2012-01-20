@@ -5,3 +5,7 @@
  *= require_self
  *= require_tree . 
 */
+
+#mainbody {
+background : #F5F5F5;
+}

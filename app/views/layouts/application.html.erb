@@ -5,11 +5,28 @@
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+<link href="http://woork.bravehost.com/elegantNavbar/topbar.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+<body bgcolor="#E6E6FA" id="mainbody">
 <% flash.each do |key, value| %>
   <div class="flash <%= key %>"><%= value %></div>
 <% end %>
+<div id="navbar">
+<span class="inbar">
+<ul>
+<li class="navhome"><a href="/pages"><span>Main</span></a></li>
+<li><a href="/pages/about"><span>About</span></a></li>
+<li><a href="/pages/contact"><span>Contact Us</span></a></li>
+<li><a href="/signin"><span>Login</span></a></li>
+<li><a href="/users/new"><span>Register</span></a></li>
+<li>
+<% if signed_in? %>
+  You are <%= @current_user.username %>
+<% end %>
+</li>
+</ul>
+</span>
+</div>
 <%= yield %>
 <%= debug(params) if Rails.env.development? %>
 <%= session.inspect if Rails.env.development? %>
