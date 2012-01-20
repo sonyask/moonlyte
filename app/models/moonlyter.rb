@@ -16,5 +16,5 @@ class Moonlyter < ActiveRecord::Base
   belongs_to :user
   has_many :specialties, :dependent => :destroy
   
-  validates :description, :experience, :presence => true
+  validates :user_id, :description, :experience, :presence => true
 end

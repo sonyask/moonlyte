@@ -29,10 +29,10 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
-# group :development do
-#   gem 'rspec-rails', '2.6.1'
+ group :development do
+   gem 'rspec-rails', '2.6.1'
 #   gem 'annotate', '2.4.0'
-# end
+ end
 
 gem 'annotate', 
     :git => 'git://github.com/jeremyolliver/annotate_models.git', 
