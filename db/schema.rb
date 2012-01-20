@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120119232332) do
+ActiveRecord::Schema.define(:version => 20120120224907) do
 
   create_table "feedbacks", :force => true do |t|
     t.text     "comment"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(:version => 20120119232332) do
   end
 
   create_table "tags", :force => true do |t|
-    t.integer  "specialty_id"
+    t.integer  "taggable_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"

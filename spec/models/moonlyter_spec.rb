@@ -2,27 +2,19 @@ require 'spec_helper'
 
 describe Moonlyter do
   
-  before(:each) do
-    @attr = {
-        :description => "I teach guitar",
-        :experience => "I have 10 years of experience",
-    }
-  end
-  
   it "should only be created if already a user" do
-    user = User.create!(:username => "sonya", :password => "1234567", :email => "whatever@whatever.com")
-    moonlyter = user.build_moonlyter(@attr)
+    moonlyter = Factory.build(:moonlyter)
     moonlyter.save.should be_true
     
-    moonlyter = Moonlyter.new(@attr)
+    moonlyter = Moonlyter.new(Factory.attributes_for(:moonlyter))
     moonlyter.save.should be_false
   end
   
   it "should not be created if profile info is nil" do
-    user = User.create!(:username => "sonya", :password => "1234567", :email => "whatever@whatever.com")
-    moonlyter = user.build_moonlyter
+    moonlyter = Factory.build(:moonlyter, :description => "", :experience => "")
     moonlyter.save.should be_false
   end
+  
 end
   
   

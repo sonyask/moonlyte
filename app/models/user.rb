@@ -22,12 +22,20 @@ class User < ActiveRecord::Base
   attr_accessible :firstName, :lastName, :email, :username, :avatar, :password, :password_confirmation
   attr_reader :firstName
   
-  validates :username, :email, :presence => true
-  validates :password, :presence => true,
-                       :confirmation => true,
-                       :length => { :within => 7..40 }
-  validates :username, :email, :uniqueness => true
-  validates :firstName, :lastName, :length => { :maximum => 20 }
+  validates :username,  :presence   => true,
+                        :uniqueness => true
+  
+  validates :email,     :presence   => true, 
+                        :uniqueness => true
+                        
+  validates :firstName, :length => { :maximum => 20 }
+  validates :lastName,  :length => { :maximum => 20 }
+  
+  validates :password,  :presence => true,
+                        :length => { :within => 7..40 }
+                        
+  validates :password_confirmation, :presence => true
+                        
   validates :email, :format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/, :on => :create } 
 
 end

@@ -15,10 +15,10 @@
 
 class Specialty < ActiveRecord::Base
   belongs_to :moonlyter
-  has_many :tags, :dependent => :destroy, :as => :tagable
+  has_many :tags, :dependent => :destroy, :as => :taggable
   has_many :feedbacks, :dependent => :destroy
   
-  validates :description, :rate, :presence => true
+  validates :description, :rate, :moonlyter_id, :presence => true
   
   
 end

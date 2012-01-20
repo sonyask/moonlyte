@@ -43,6 +43,13 @@ class MoonlytersController < ApplicationController
     end
   end
   
+  # GET /moonlyters/1/edit
+  def edit
+    @moonlyter = Moonlyter.find(params[:id])
+  end
+  
+  # POST /moonlyters
+  # POST /moonlyters.json  
   def create
     if signed_in?
       if current_user.moonlyter.nil?
@@ -64,6 +71,36 @@ class MoonlytersController < ApplicationController
       flash[:error] = "Must be signed up first"
       redirect_to signin_path
     end
-      
+  end
+  
+  # PUT /moonlyters/1
+  # PUT /moonlyters/1.json
+  def update
+    # only update the values that have things filled in
+    updatedValues = params[:moonlyter]
+    updatedValues.keep_if { |key, value| !(value === "") }
+    @moonlyter = Moonlyter.find(params[:id])
+
+    respond_to do |format|
+      if @moonlyter.update_attributes(updatedValues)
+        format.html { redirect_to @moonlyter, notice: 'Moonlyter was successfully updated.' }
+        format.json { head :ok }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @moonlyter.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  # DELETE /moonlyters/1
+  # DELETE /moonlyters/1.json
+  def destroy
+    @moonlyter = Moonlyter.find(params[:id])
+    @moonlyter.destroy
+
+    respond_to do |format|
+      format.html { redirect_to users_url }
+      format.json { head :ok }
+    end
   end
 end

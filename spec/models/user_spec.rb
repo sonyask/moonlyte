@@ -2,14 +2,6 @@ require 'spec_helper'
 
 describe User do
   
-  before(:each) do
-    @attr = {
-        :username => "howard",
-        :email => "user@example.com",
-        :password => "1"*7,
-      }
-  end
-  
   it "can only save with username password email" do
     user = User.new
     user.username = "a"*5
@@ -20,14 +12,29 @@ describe User do
       user.password = "a"*(i+1)
       user.save.should be_false
     end
-    user.password = "1"*7
+    user.password = "a"*7
     user.save.should be_true
   end
 
-  it "no duplicate usernames" do
-    user1 = User.new(@attr)
-    user1.save should be_true
-    user2 = User.new(@attr)
+  it "should have no duplicate usernames" do
+    user1 = Factory.build(:user, :username => "duplicate")
+    user1.save.should be_true
+    user2 = Factory.build(:user, :username => "duplicate")
     user2.save.should be_false
   end
+  
+  it "should authenticate with matching username and password" do
+    user = Factory.build(:user)
+    user.authenticate("bobcats").should be_false
+    user.authenticate(user.password).should be_true
+  end
+  
+  it "should reject non-matching password confirmation" do
+    user = Factory.build(:user, :password_confirmation => "incorrect")
+    user.save.should be_false
+    user.password_confirmation = user.password
+    user.save.should be_true
+  end
+    
+    
 end

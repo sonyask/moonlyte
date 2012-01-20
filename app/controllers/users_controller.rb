@@ -49,8 +49,8 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         sign_in @user
-	#send out a confirmation email
-	My_Mailer.confirm_email(@user).deliver
+	      #send out a confirmation email
+	      My_Mailer.confirm_email(@user).deliver
 
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
@@ -64,10 +64,13 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
+    # only update the values that have things filled in
+    updatedValues = params[:user]
+    updatedValues.keep_if { |key, value| !(value === "") }
     @user = User.find(params[:id])
 
     respond_to do |format|
-      if @user.update_attributes(params[:user])
+      if @user.update_attributes(updatedValues)
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
         format.json { head :ok }
       else
@@ -89,6 +92,8 @@ class UsersController < ApplicationController
     end
   end
   
+  # Class method to return user_id from session variable
+  # TDL: make it also check for a salt
   def self.authenticate(user_id)
     user = find_by_id(user_id)
     return nil if user.nil?
