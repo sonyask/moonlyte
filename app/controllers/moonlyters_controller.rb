@@ -1,4 +1,7 @@
 class MoonlytersController < ApplicationController
+  
+  #skip_before_filter :require_login
+  
   # GET /moonlyters
   # GET /moonlyters.json
   def index
@@ -45,6 +48,7 @@ class MoonlytersController < ApplicationController
   
   # GET /moonlyters/1/edit
   def edit
+    # TDL: change @moonlyter
     @moonlyter = Moonlyter.find(params[:id])
   end
   
@@ -64,7 +68,7 @@ class MoonlytersController < ApplicationController
           end
         end
       else
-        flash[:notice] = "Moonlyter account already exists"
+        flash[:error] = "Moonlyter account already exists"
         redirect_to moonlyters_path
       end
     else
@@ -76,6 +80,7 @@ class MoonlytersController < ApplicationController
   # PUT /moonlyters/1
   # PUT /moonlyters/1.json
   def update
+    # TDL: change @moonlyter
     # only update the values that have things filled in
     updatedValues = params[:moonlyter]
     updatedValues.keep_if { |key, value| !(value === "") }
@@ -95,6 +100,7 @@ class MoonlytersController < ApplicationController
   # DELETE /moonlyters/1
   # DELETE /moonlyters/1.json
   def destroy
+    # TDL: change @moonlyter
     @moonlyter = Moonlyter.find(params[:id])
     @moonlyter.destroy
 

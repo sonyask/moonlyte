@@ -1,0 +1,22 @@
+<h1>Listing Specialties</h1>
+<table>
+  <tr>
+    <th>Rate</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @specialties.each do |specialty| %>
+  <tr>
+    <td><%= specialty.rate %></td>
+    <td><%= specialty.description %></td>
+    <td><%= link_to 'Show', [specialty.moonlyter, specialty] %></td>
+    <td><%= link_to 'Edit', edit_moonlyter_specialty_path(specialty.moonlyter, specialty) %></td>
+    <td><%= link_to 'Destroy', [specialty.moonlyter, specialty], confirm: 'For reals?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />

@@ -11,7 +11,9 @@ Moonlyte::Application.routes.draw do
   get "pages/contact"
 
   resources :users
-  resources :moonlyters
+  resources :moonlyters do
+    resources :specialties
+  end
   resources :sessions, :only => [:new, :create, :destroy]
   
   match '/signin', :to => 'sessions#new' 
