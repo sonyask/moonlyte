@@ -1,10 +1,14 @@
 class MoonlytersController < ApplicationController
   
-  #skip_before_filter :require_login
+  before_filter :require_login,     :only => [:new, :edit, :create, :update, :destroy]
+  before_filter :fetch_moonlyter,   :only => [:show, :edit, :update, :destroy]
+  before_filter :require_editable,  :only => [:edit, :update, :destroy]
+  before_filter :require_not_yet_moonlyter, :only => [:new, :create]
   
   # GET /moonlyters
   # GET /moonlyters.json
   def index
+    @title = "Moonlyters"
     @moonlyters = Moonlyter.all
 
     respond_to do |format|
@@ -16,7 +20,7 @@ class MoonlytersController < ApplicationController
   # GET /moonlyters/1
   # GET /moonlyters/1.json
   def show
-    @moonlyter = Moonlyter.find(params[:id])
+    @title = "Moonlyter"
 
     respond_to do |format|
       format.html # show.html.erb
@@ -27,68 +31,45 @@ class MoonlytersController < ApplicationController
   # GET /moonlyters/new
   # GET /moonlyters/new.json
   def new
-    # make a new moonlighter if the user is signed in
-    if signed_in? 
-      if current_user.moonlyter.nil?
-        @moonlyter = current_user.build_moonlyter
-
-        respond_to do |format|
-          format.html # new.html.erb
-          format.json { render json: @moonlyter }
-        end
-      else
-        flash[:error] = "Moonlyter account already exists"
-        redirect_to moonlyters_path
-      end
-    else
-      flash[:error] = "Must be signed up first"
-      redirect_to signin_path
+    @title = "become a Moonlyter!"
+    @moonlyter = current_user.build_moonlyter
+    @moonlyter.specialties.build
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @moonlyter }
     end
   end
   
   # GET /moonlyters/1/edit
   def edit
-    # TDL: change @moonlyter
-    @moonlyter = Moonlyter.find(params[:id])
+    @title = "edit Moonlyter"
   end
   
   # POST /moonlyters
   # POST /moonlyters.json  
   def create
-    if signed_in?
-      if current_user.moonlyter.nil?
-        @moonlyter = current_user.build_moonlyter(params[:moonlyter])
-        respond_to do |format|
-          if @moonlyter.save
-            format.html { redirect_to @moonlyter, notice: 'Moonlyter was successfully created.' }
-            format.json { render json: @moonlyter, status: :created, location: @moonlyter }
-          else
-            format.html { render action: "new" }
-            format.json { render json: @moonlyter.errors, status: :unprocessable_entity }
-          end
-        end
+    @moonlyter = current_user.build_moonlyter(params[:moonlyter])
+    respond_to do |format|
+      if @moonlyter.save
+        format.html { redirect_to @moonlyter, notice: 'Moonlyter was successfully created.' }
+        format.json { render json: @moonlyter, status: :created, location: @moonlyter }
       else
-        flash[:error] = "Moonlyter account already exists"
-        redirect_to moonlyters_path
+        format.html { render action: "new" }
+        format.json { render json: @moonlyter.errors, status: :unprocessable_entity }
       end
-    else
-      flash[:error] = "Must be signed up first"
-      redirect_to signin_path
     end
   end
   
   # PUT /moonlyters/1
   # PUT /moonlyters/1.json
   def update
-    # TDL: change @moonlyter
     # only update the values that have things filled in
     updatedValues = params[:moonlyter]
-    updatedValues.keep_if { |key, value| !(value === "") }
-    @moonlyter = Moonlyter.find(params[:id])
+    updatedValues.keep_if { |key, value| !value.blank? }
 
     respond_to do |format|
       if @moonlyter.update_attributes(updatedValues)
-        format.html { redirect_to @moonlyter, notice: 'Moonlyter was successfully updated.' }
+        format.html { redirect_to @moonlyter, notice: "Moonlyter was successfully updated." }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -100,8 +81,6 @@ class MoonlytersController < ApplicationController
   # DELETE /moonlyters/1
   # DELETE /moonlyters/1.json
   def destroy
-    # TDL: change @moonlyter
-    @moonlyter = Moonlyter.find(params[:id])
     @moonlyter.destroy
 
     respond_to do |format|
@@ -109,4 +88,28 @@ class MoonlytersController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  private
+    
+    def fetch_moonlyter
+      @moonlyter = Moonlyter.find(params[:id])
+    end
+    
+    def require_editable
+      unless current_user.moonlyter === @moonlyter
+         flash[:error] = "Uh oh wrong account"
+         redirect_to root_path
+         false
+      end
+    end
+    
+    def require_not_yet_moonlyter
+      current_moonlyter = current_user.moonlyter
+      unless current_moonlyter.nil?
+        flash[:error] = "Moonlyter account already exists"
+        redirect_to current_moonlyter
+        false
+      end
+    end
+    
 end

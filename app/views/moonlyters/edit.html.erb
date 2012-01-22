@@ -1,7 +1,8 @@
 <h1>Editing Moonlyter</h1>
-
+<%= link_to "Back to Edit User Info", edit_user_path(@moonlyter.user) %>
 <%= render 'form' %>
 
-<%= link_to 'NEW SPECIALTY!!!!', new_moonlyter_specialty_path(@moonlyter) %> |
+<%= link_to "List specialties", moonlyter_specialties_path(@moonlyter) %> |
+<%= link_to 'Create SPECIALTY!!!!', new_moonlyter_specialty_path(@moonlyter) %> |
 <%= link_to 'Show', @moonlyter %> |
 <%= link_to 'Back', moonlyters_path %>

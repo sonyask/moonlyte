@@ -19,8 +19,8 @@
 </p>
 
 <p>
-  <b>Password:</b>
-  <%= @moonlyter.user.password %>
+  <b>Password Digest:</b>
+  <%= @moonlyter.user.password_digest %>
 </p>
 
 <p>
@@ -48,6 +48,15 @@
   <%= display @moonlyter.experience %>
 </p>
 
+<h2>Specialties</h2>
+<ol>
+<% for specialty in @moonlyter.specialties %>
+  <li>
+    <%= render specialty %>
+  </li>
+<% end %>
+</ol>
 
+<%= link_to "Back to Your User Profile", @moonlyter.user %><br />
 <%= link_to 'Edit', edit_moonlyter_path(@moonlyter) %> |
 <%= link_to 'Back', moonlyters_path %>

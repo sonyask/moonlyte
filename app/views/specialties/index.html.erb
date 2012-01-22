@@ -13,10 +13,14 @@
     <td><%= specialty.rate %></td>
     <td><%= specialty.description %></td>
     <td><%= link_to 'Show', [specialty.moonlyter, specialty] %></td>
-    <td><%= link_to 'Edit', edit_moonlyter_specialty_path(specialty.moonlyter, specialty) %></td>
-    <td><%= link_to 'Destroy', [specialty.moonlyter, specialty], confirm: 'For reals?', method: :delete %></td>
+    
+    <% if current_user === specialty.moonlyter.user %>
+      <td><%= link_to 'Edit', edit_moonlyter_specialty_path(specialty.moonlyter, specialty) %></td>
+      <td><%= link_to 'Destroy', [specialty.moonlyter, specialty], confirm: 'For reals?', method: :delete %></td>
+    <% end %>
   </tr>
 <% end %>
+
 </table>
 
 <br />

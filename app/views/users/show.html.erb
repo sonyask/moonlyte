@@ -28,11 +28,10 @@
   <%= image_tag @user.avatar %>
 </p>
 
-<% unless @user.moonlyter == nil %>
-<p>
-  <b>Moonlyter:</b>
-  <%= @user.moonlyter.description %>
-</p>
+<% unless @user.moonlyter.nil? %>
+  <p>
+    <%= link_to "Your Moonlyter Profile", @user.moonlyter %>
+  </p>
 <% end %>
 
 <%= link_to 'Creat Profile', new_moonlyter_path %> | 

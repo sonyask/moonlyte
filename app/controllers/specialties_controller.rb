@@ -79,9 +79,10 @@ class SpecialtiesController < ApplicationController
   private
   
     def require_moonlyter
-      unless moonlyter?(current_user)
+      unless is_moonlyter?(current_user)
         flash[:error] = "Need a moonlyter profile"
-        redirect_to '/pages/index.html'
+        redirect_to new_moonlyter_path
+        false
       end
     end
     
@@ -93,7 +94,8 @@ class SpecialtiesController < ApplicationController
     def require_editable
      unless current_user.moonlyter === @specialty.moonlyter
        flash[:error] = "Uh oh wrong account"
-       redirect_to '/pages/index.html'
+       redirect_to root_path
+       false
      end
     end
   

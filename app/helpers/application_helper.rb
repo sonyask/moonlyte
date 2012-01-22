@@ -8,5 +8,22 @@ module ApplicationHelper
       return obj
     end
   end
+  
+  # display the title
+  def title
+    baseTitle = "Moonlyt"
+    if @title.nil?
+      return baseTitle
+    else
+      return "#{baseTitle}: #{@title}"
+    end
+  end
+  
+  # find active page
+  def highlight_current(path)
+    if current_page?(path)
+      return "navcurrent"
+    end
+  end
     
 end

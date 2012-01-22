@@ -1,5 +1,9 @@
 <h1>Editing user</h1>
-
+<% if @user.moonlyter.nil? %>
+  <%= link_to "Become a moonlyter!", new_moonlyter_path %>
+<% else %>
+  <%= link_to "Edit Moonlyter Info", edit_moonlyter_path %>
+<% end %>
 <%= render 'form' %>
 
 <%= link_to 'Show', @user %> |

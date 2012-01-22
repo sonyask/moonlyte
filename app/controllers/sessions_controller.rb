@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   #skip_before_filter :require_login
 
   def new
+    @title = "sign in"
   end
   
   def create

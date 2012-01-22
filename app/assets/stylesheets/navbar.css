@@ -30,14 +30,26 @@ line-height:36px;
 display:block;
 margin-left:20px; }
 #navbar .navhome a, #navbar .navhome a:hover{
+color:#FFFFFF;
 background:url(a-bg.png) left top no-repeat;
 height:36px;
 line-height:36px; }
 #navbar .navhome a span, #navbar .navhome a:hover span{
-color:#FFFFFF;
 background:url(span-bg.png) right top no-repeat;
 height:36px;
 line-height:36px; }
+
+
+#navbar .navcurrent a, #navbar .navhome a:hover{
+background:url(ahover-bg.png) left top no-repeat;
+height:36px;
+line-height:36px; }
+#navbar .navcurrent a span, #navbar .navhome a:hover span{
+background:url(spanhover-bg.png) right top no-repeat;
+height:36px;
+line-height:36px; }
+
+
 #navbar ul li a:hover{
 background:url(ahover-bg.png) left top no-repeat;
 height:36px;

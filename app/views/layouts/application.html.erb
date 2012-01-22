@@ -1,33 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Moonlyte</title>
+  <title><%= title %></title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
-<body bgcolor="#E6E6FA" id="mainbody">
-<div id="navbar">
-<span class="inbar">
-<ul>
-<li class="navhome"><a href="/pages"><span>Main</span></a></li>
-<li><a href="/pages/about"><span>About</span></a></li>
-<li><a href="/pages/contact"><span>Contact Us</span></a></li>
-<li><a href="/signin"><span>Login</span></a></li>
-<li><a href="/users/new"><span>Register</span></a></li>
-<li>
-<% if signed_in? %>
-  You are <%= @current_user.username %>
-<% end %>
-</li>
-</ul>
-</span>
-</div>
-<% flash.each do |key, value| %>
-  <div class="flash <%= key %>"><%= value %></div>
-<% end %>
-<%= yield %>
-<%= debug(params) if Rails.env.development? %>
-<%= session.inspect if Rails.env.development? %>
+<body bgcolor="#E6E6FA" id="mainbody">  
+  <%= render "layouts/header"%>
+  <% flash.each do |key, value| %>
+    <div class="flash <%= key %>"><%= value %></div>
+  <% end %>
+
+  <%= yield %>
+
+  <%= debug(params) if Rails.env.development? %>
+  <%= session.inspect if Rails.env.development? %>
 </body>
 </html>

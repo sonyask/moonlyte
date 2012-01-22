@@ -27,6 +27,21 @@
     <%= f.label :experience %><br />
     <%= f.text_field :experience %>
   </div>
+  
+  <h2> Specialties </h2>
+  <ol>
+    <% @moonlyter.specialties.each do |specialty| %>
+      <%= f.fields_for :specialties, specialty do |builder| %>
+        <%= render "specialty_fields", :f => builder %>
+      <% end %>
+    <% end %>
+    
+    <li>
+      <%= link_to_add_fields "Add Specialty", f, :specialties %>
+    </li>
+  </ol>
+  
+  
   <div class="actions">
     <%= f.submit %>
   </div>

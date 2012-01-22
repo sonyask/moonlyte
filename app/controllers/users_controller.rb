@@ -2,9 +2,12 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
 
-  #skip_before_filter :require_login
+  before_filter :require_login,     :except => [:index, :show, :new, :create]
+  before_filter :fetch_user,        :only => [:show, :edit, :update, :destroy]
+  before_filter :require_editable,  :only => [:edit, :update, :destroy]
 
   def index
+    @title = "users"
     @users = User.all
     @current_user = current_user
     
@@ -17,8 +20,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find(params[:id])
-
+    @title = "showing user"
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
@@ -28,6 +30,7 @@ class UsersController < ApplicationController
   # GET /users/new
   # GET /users/new.json
   def new
+    @title = "sign up"
     @user = User.new
 
     respond_to do |format|
@@ -38,14 +41,12 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    @user = User.find(params[:id])
+    @title = "edit User"
   end
 
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
-
     respond_to do |format|
       if @user.save
         sign_in @user
@@ -66,8 +67,7 @@ class UsersController < ApplicationController
   def update
     # only update the values that have things filled in
     updatedValues = params[:user]
-    updatedValues.keep_if { |key, value| !(value === "") }
-    @user = User.find(params[:id])
+    updatedValues.keep_if { |key, value| !value.blank? }
 
     respond_to do |format|
       if @user.update_attributes(updatedValues)
@@ -83,7 +83,6 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
 
     respond_to do |format|
@@ -99,6 +98,20 @@ class UsersController < ApplicationController
     return nil if user.nil?
     return user
   end
+  
+  private
+  
+    def fetch_user
+      @user = User.find(params[:id])
+    end
+    
+    def require_editable
+      unless current_user === @user
+         flash[:error] = "Uh oh wrong account"
+         redirect_to root_path
+         false
+      end
+    end
     
   
 end

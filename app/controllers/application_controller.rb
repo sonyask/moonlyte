@@ -12,12 +12,13 @@ class ApplicationController < ActionController::Base
     def require_login
       unless signed_in?
         flash[:error] = "MUST SIGN IN"
-        redirect_to '/pages/index.html'
+        redirect_to root_path
+        false
       end
     end
     
     # determines whether a given user is a moonlyter
-    def moonlyter?(user_id)
+    def is_moonlyter?(user_id)
       user = User.find_by_id(user_id)
          
       # returns true if user exists, and has a moonlyter profile

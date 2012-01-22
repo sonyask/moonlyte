@@ -1,0 +1,40 @@
+<header>
+<div id="navbar">
+  <span class="inbar">
+    <ul>
+      <li class="navhome"> 
+        <%= link_to content_tag(:span, "Main"), root_path %>
+      </li>
+      <li class="<%= highlight_current(moonlyters_path) %>" >
+        <%= link_to content_tag(:span, "Moonlyters"), moonlyters_path %>
+      </li>
+      <li class="<%= highlight_current(pages_about_path) %>" >
+        <%= link_to content_tag(:span, "About"), pages_about_path %> 
+      </li>
+      <li class="<%= highlight_current(pages_contact_path) %>" >
+        <%= link_to content_tag(:span, "Contact Us"), pages_contact_path %>
+      </li>
+  
+      <% if !signed_in? %>
+        <li class="<%= highlight_current(signup_path) %>" >
+          <%= link_to content_tag(:span, "Register"), signup_path %>
+        <li>
+        <li class="<%= highlight_current(signin_path) %>" >
+          <%= link_to content_tag(:span, "Sign In"), signin_path %>
+        </li>
+      <% else %>
+        <li class="<%= highlight_current(current_user) %>" >
+          <%= link_to content_tag(:span, "Profile"), current_user %>
+        </li>
+        <li class="<%= highlight_current(edit_user_path(current_user)) %>" >
+          <%= link_to content_tag(:span, "Settings"), edit_user_path(current_user) %>
+        </li>
+        <li class="<%= highlight_current(signout_path) %>" >
+          <%= link_to content_tag(:span, "Sign Out"), signout_path %>
+        </li>
+      <% end %>
+      </li>
+    </ul>
+  </span>
+</div>
+</header>
